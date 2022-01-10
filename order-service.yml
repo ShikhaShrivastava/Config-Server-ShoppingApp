@@ -1,0 +1,62 @@
+server:
+  port: 8089
+    
+spring:
+#  config:
+#    import: "optional:configserver:"
+#  cloud:
+#    config:
+#      uri:
+#        - http://localhost:9196
+
+#  config:
+#    import:
+#    -  "optional:configserver:"  
+    
+  datasource:
+    hikari:
+      maximum-pool-size: 8
+    url:  jdbc:mysql://localhost:3306/ORDER-SERVICE
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+  default_schema: test
+  format_sql: true
+  generate_statistics: true
+  dialect: org.hibernate.dialect.MySQL8Dialect
+  dialect.storage_engine: innodb
+  application:
+    name:  order-service
+
+  
+eureka:
+  instance:
+  prefer-ip-address: true
+  instance-id : ${spring.cloud.client.ip-address}:${server.port}
+  hostname:  localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      
+      
+
+#microservice:
+#  payment-service:
+#    endpoints:
+#      endpoint:
+#        uri:
+#          -http://PAYMENT-SERVICE/payment/doPayment
+#  order-service:
+#    endpoints:
+#      endpoint:
+#        uri:
+#          -http://ORDER-SERVICE/order/bookOrders
+        
+        
+ 
